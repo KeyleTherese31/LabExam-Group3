@@ -11,9 +11,8 @@
 <p class="text-muted">Post ID: {{ post.id }}</p>
 
 {% if post.image %}
-    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid mt-3">  <!-- Display image -->
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid mt-3" style="max-width: 300px; height: auto;">
 {% endif %}
-
 <hr>
 <p>{{ post.content }}</p>
 <a href="{% url 'home' %}" class="btn btn-secondary mt-3">
