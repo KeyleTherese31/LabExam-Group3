@@ -41,9 +41,8 @@ def register(request):
 def post_edit(request, post_id):
     post = get_object_or_404(Post, id=post_id)
 
-    # Ensure only the author can edit the post
     if post.author != request.user:
-        return redirect('home')  # You can redirect to a 'permission denied' page instead if needed
+        return redirect('home')  
 
     if request.method == "POST":
         form = PostForm(request.POST, instance=post)
