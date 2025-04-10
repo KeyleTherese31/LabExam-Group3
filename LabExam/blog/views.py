@@ -36,3 +36,21 @@ def register(request):
     else:
         form = RegisterForm()
     return render(request, 'blog/register.html', {'form': form})
+
+@login_required
+def post_edit(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+
+    # Ensure only the author can edit the post
+    if post.author != request.user:
+        return redirect('home')  # You can redirect to a 'permission denied' page instead if needed
+
+    if request.method == "POST":
+        form = PostForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('post_detail', post_id=post.id)
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, 'blog/post_edit.html', {'form': form, 'post': post})
